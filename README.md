@@ -1,55 +1,46 @@
 <!-- generated file, do not edit directly -->
 
-# @aws-sdk/client-cognito-identity
+# @aws-sdk/client-sts
 
-[![NPM version](https://img.shields.io/npm/v/@aws-sdk/client-cognito-identity/latest.svg)](https://www.npmjs.com/package/@aws-sdk/client-cognito-identity)
-[![NPM downloads](https://img.shields.io/npm/dm/@aws-sdk/client-cognito-identity.svg)](https://www.npmjs.com/package/@aws-sdk/client-cognito-identity)
+[![NPM version](https://img.shields.io/npm/v/@aws-sdk/client-sts/latest.svg)](https://www.npmjs.com/package/@aws-sdk/client-sts)
+[![NPM downloads](https://img.shields.io/npm/dm/@aws-sdk/client-sts.svg)](https://www.npmjs.com/package/@aws-sdk/client-sts)
 
 ## Description
 
-AWS SDK for JavaScript CognitoIdentity Client for Node.js, Browser and React Native.
+AWS SDK for JavaScript STS Client for Node.js, Browser and React Native.
 
-<fullname>Amazon Cognito Federated Identities</fullname>
+<fullname>Security Token Service</fullname>
 
-<p>Amazon Cognito Federated Identities is a web service that delivers scoped temporary
-credentials to mobile devices and other untrusted environments. It uniquely identifies a
-device and supplies the user with a consistent identity over the lifetime of an
-application.</p>
-<p>Using Amazon Cognito Federated Identities, you can enable authentication with one or
-more third-party identity providers (Facebook, Google, or Login with Amazon) or an Amazon
-Cognito user pool, and you can also choose to support unauthenticated access from your app.
-Cognito delivers a unique identifier for each user and acts as an OpenID token provider
-trusted by AWS Security Token Service (STS) to access temporary, limited-privilege AWS
-credentials.</p>
-<p>For a description of the authentication flow from the Amazon Cognito Developer Guide
-see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html">Authentication Flow</a>.</p>
-<p>For more information see <a href="https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html">Amazon Cognito Federated Identities</a>.</p>
+<p>Security Token Service (STS) enables you to request temporary, limited-privilege
+credentials for Identity and Access Management (IAM) users or for users that you
+authenticate (federated users). This guide provides descriptions of the STS API. For
+more information about using this service, see <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html">Temporary Security Credentials</a>.</p>
 
 ## Installing
 
-To install the this package, simply type add or install @aws-sdk/client-cognito-identity
+To install the this package, simply type add or install @aws-sdk/client-sts
 using your favorite package manager:
 
-- `npm install @aws-sdk/client-cognito-identity`
-- `yarn add @aws-sdk/client-cognito-identity`
-- `pnpm add @aws-sdk/client-cognito-identity`
+- `npm install @aws-sdk/client-sts`
+- `yarn add @aws-sdk/client-sts`
+- `pnpm add @aws-sdk/client-sts`
 
 ## Getting Started
 
 ### Import
 
 The AWS SDK is modulized by clients and commands.
-To send a request, you only need to import the `CognitoIdentityClient` and
-the commands you need, for example `CreateIdentityPoolCommand`:
+To send a request, you only need to import the `STSClient` and
+the commands you need, for example `AssumeRoleCommand`:
 
 ```js
 // ES5 example
-const { CognitoIdentityClient, CreateIdentityPoolCommand } = require("@aws-sdk/client-cognito-identity");
+const { STSClient, AssumeRoleCommand } = require("@aws-sdk/client-sts");
 ```
 
 ```ts
 // ES6+ example
-import { CognitoIdentityClient, CreateIdentityPoolCommand } from "@aws-sdk/client-cognito-identity";
+import { STSClient, AssumeRoleCommand } from "@aws-sdk/client-sts";
 ```
 
 ### Usage
@@ -63,12 +54,12 @@ To send a request, you:
 
 ```js
 // a client can be shared by different commands.
-const client = new CognitoIdentityClient({ region: "REGION" });
+const client = new STSClient({ region: "REGION" });
 
 const params = {
   /** input parameters */
 };
-const command = new CreateIdentityPoolCommand(params);
+const command = new AssumeRoleCommand(params);
 ```
 
 #### Async/await
@@ -142,12 +133,12 @@ However, it results in a bigger bundle size and may be dropped in next major ver
 on [modular packages in AWS SDK for JavaScript](https://aws.amazon.com/blogs/developer/modular-packages-in-aws-sdk-for-javascript/)
 
 ```ts
-import * as AWS from "@aws-sdk/client-cognito-identity";
-const client = new AWS.CognitoIdentity({ region: "REGION" });
+import * as AWS from "@aws-sdk/client-sts";
+const client = new AWS.STS({ region: "REGION" });
 
 // async/await.
 try {
-  const data = await client.createIdentityPool(params);
+  const data = await client.assumeRole(params);
   // process data.
 } catch (error) {
   // error handling.
@@ -155,7 +146,7 @@ try {
 
 // Promises.
 client
-  .createIdentityPool(params)
+  .assumeRole(params)
   .then((data) => {
     // process data.
   })
@@ -164,7 +155,7 @@ client
   });
 
 // callbacks.
-client.createIdentityPool(params, (err, data) => {
+client.assumeRole(params, (err, data) => {
   // process err and data.
 });
 ```
@@ -209,7 +200,7 @@ visit our [code samples repo](https://github.com/aws-samples/aws-sdk-js-tests).
 
 ## Contributing
 
-This client code is generated automatically. Any modifications will be overwritten the next time the `@aws-sdk/client-cognito-identity` package is updated.
+This client code is generated automatically. Any modifications will be overwritten the next time the `@aws-sdk/client-sts` package is updated.
 To contribute to client you can check our [generate clients scripts](https://github.com/aws/aws-sdk-js-v3/tree/main/scripts/generate-clients).
 
 ## License
