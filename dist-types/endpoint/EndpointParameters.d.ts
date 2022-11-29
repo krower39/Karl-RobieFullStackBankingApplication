@@ -4,6 +4,7 @@ export interface ClientInputEndpointParameters {
     useDualstackEndpoint?: boolean | Provider<boolean>;
     useFipsEndpoint?: boolean | Provider<boolean>;
     endpoint?: string | Provider<string> | Endpoint | Provider<Endpoint> | EndpointV2 | Provider<EndpointV2>;
+    useGlobalEndpoint?: boolean | Provider<boolean>;
 }
 export declare type ClientResolvedEndpointParameters = ClientInputEndpointParameters & {
     defaultSigningName: string;
@@ -16,4 +17,5 @@ export interface EndpointParameters extends __EndpointParameters {
     UseDualStack?: boolean;
     UseFIPS?: boolean;
     Endpoint?: string;
+    UseGlobalEndpoint?: boolean;
 }

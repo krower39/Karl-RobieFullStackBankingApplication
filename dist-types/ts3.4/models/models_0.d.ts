@@ -1,449 +1,238 @@
 import { ExceptionOptionType as __ExceptionOptionType } from "@aws-sdk/smithy-client";
-import { CognitoIdentityServiceException as __BaseException } from "./CognitoIdentityServiceException";
-export declare enum AmbiguousRoleResolutionType {
-  AUTHENTICATED_ROLE = "AuthenticatedRole",
-  DENY = "Deny",
+import { STSServiceException as __BaseException } from "./STSServiceException";
+export interface AssumedRoleUser {
+  AssumedRoleId: string | undefined;
+  Arn: string | undefined;
 }
-export interface CognitoIdentityProvider {
-  ProviderName?: string;
-  ClientId?: string;
-  ServerSideTokenCheck?: boolean;
+export interface PolicyDescriptorType {
+  arn?: string;
 }
-export interface CreateIdentityPoolInput {
-  IdentityPoolName: string | undefined;
-  AllowUnauthenticatedIdentities: boolean | undefined;
-  AllowClassicFlow?: boolean;
-  SupportedLoginProviders?: Record<string, string>;
-  DeveloperProviderName?: string;
-  OpenIdConnectProviderARNs?: string[];
-  CognitoIdentityProviders?: CognitoIdentityProvider[];
-  SamlProviderARNs?: string[];
-  IdentityPoolTags?: Record<string, string>;
+export interface Tag {
+  Key: string | undefined;
+  Value: string | undefined;
 }
-export interface IdentityPool {
-  IdentityPoolId: string | undefined;
-  IdentityPoolName: string | undefined;
-  AllowUnauthenticatedIdentities: boolean | undefined;
-  AllowClassicFlow?: boolean;
-  SupportedLoginProviders?: Record<string, string>;
-  DeveloperProviderName?: string;
-  OpenIdConnectProviderARNs?: string[];
-  CognitoIdentityProviders?: CognitoIdentityProvider[];
-  SamlProviderARNs?: string[];
-  IdentityPoolTags?: Record<string, string>;
-}
-export declare class InternalErrorException extends __BaseException {
-  readonly name: "InternalErrorException";
-  readonly $fault: "server";
-  constructor(
-    opts: __ExceptionOptionType<InternalErrorException, __BaseException>
-  );
-}
-export declare class InvalidParameterException extends __BaseException {
-  readonly name: "InvalidParameterException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<InvalidParameterException, __BaseException>
-  );
-}
-export declare class LimitExceededException extends __BaseException {
-  readonly name: "LimitExceededException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<LimitExceededException, __BaseException>
-  );
-}
-export declare class NotAuthorizedException extends __BaseException {
-  readonly name: "NotAuthorizedException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<NotAuthorizedException, __BaseException>
-  );
-}
-export declare class ResourceConflictException extends __BaseException {
-  readonly name: "ResourceConflictException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<ResourceConflictException, __BaseException>
-  );
-}
-export declare class TooManyRequestsException extends __BaseException {
-  readonly name: "TooManyRequestsException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<TooManyRequestsException, __BaseException>
-  );
-}
-export interface DeleteIdentitiesInput {
-  IdentityIdsToDelete: string[] | undefined;
-}
-export declare enum ErrorCode {
-  ACCESS_DENIED = "AccessDenied",
-  INTERNAL_SERVER_ERROR = "InternalServerError",
-}
-export interface UnprocessedIdentityId {
-  IdentityId?: string;
-  ErrorCode?: ErrorCode | string;
-}
-export interface DeleteIdentitiesResponse {
-  UnprocessedIdentityIds?: UnprocessedIdentityId[];
-}
-export interface DeleteIdentityPoolInput {
-  IdentityPoolId: string | undefined;
-}
-export declare class ResourceNotFoundException extends __BaseException {
-  readonly name: "ResourceNotFoundException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<ResourceNotFoundException, __BaseException>
-  );
-}
-export interface DescribeIdentityInput {
-  IdentityId: string | undefined;
-}
-export interface IdentityDescription {
-  IdentityId?: string;
-  Logins?: string[];
-  CreationDate?: Date;
-  LastModifiedDate?: Date;
-}
-export interface DescribeIdentityPoolInput {
-  IdentityPoolId: string | undefined;
-}
-export declare class ExternalServiceException extends __BaseException {
-  readonly name: "ExternalServiceException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<ExternalServiceException, __BaseException>
-  );
-}
-export interface GetCredentialsForIdentityInput {
-  IdentityId: string | undefined;
-  Logins?: Record<string, string>;
-  CustomRoleArn?: string;
+export interface AssumeRoleRequest {
+  RoleArn: string | undefined;
+  RoleSessionName: string | undefined;
+  PolicyArns?: PolicyDescriptorType[];
+  Policy?: string;
+  DurationSeconds?: number;
+  Tags?: Tag[];
+  TransitiveTagKeys?: string[];
+  ExternalId?: string;
+  SerialNumber?: string;
+  TokenCode?: string;
+  SourceIdentity?: string;
 }
 export interface Credentials {
-  AccessKeyId?: string;
-  SecretKey?: string;
-  SessionToken?: string;
-  Expiration?: Date;
+  AccessKeyId: string | undefined;
+  SecretAccessKey: string | undefined;
+  SessionToken: string | undefined;
+  Expiration: Date | undefined;
 }
-export interface GetCredentialsForIdentityResponse {
-  IdentityId?: string;
+export interface AssumeRoleResponse {
+  Credentials?: Credentials;
+  AssumedRoleUser?: AssumedRoleUser;
+  PackedPolicySize?: number;
+  SourceIdentity?: string;
+}
+export declare class ExpiredTokenException extends __BaseException {
+  readonly name: "ExpiredTokenException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<ExpiredTokenException, __BaseException>
+  );
+}
+export declare class MalformedPolicyDocumentException extends __BaseException {
+  readonly name: "MalformedPolicyDocumentException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<
+      MalformedPolicyDocumentException,
+      __BaseException
+    >
+  );
+}
+export declare class PackedPolicyTooLargeException extends __BaseException {
+  readonly name: "PackedPolicyTooLargeException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<PackedPolicyTooLargeException, __BaseException>
+  );
+}
+export declare class RegionDisabledException extends __BaseException {
+  readonly name: "RegionDisabledException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<RegionDisabledException, __BaseException>
+  );
+}
+export interface AssumeRoleWithSAMLRequest {
+  RoleArn: string | undefined;
+  PrincipalArn: string | undefined;
+  SAMLAssertion: string | undefined;
+  PolicyArns?: PolicyDescriptorType[];
+  Policy?: string;
+  DurationSeconds?: number;
+}
+export interface AssumeRoleWithSAMLResponse {
+  Credentials?: Credentials;
+  AssumedRoleUser?: AssumedRoleUser;
+  PackedPolicySize?: number;
+  Subject?: string;
+  SubjectType?: string;
+  Issuer?: string;
+  Audience?: string;
+  NameQualifier?: string;
+  SourceIdentity?: string;
+}
+export declare class IDPRejectedClaimException extends __BaseException {
+  readonly name: "IDPRejectedClaimException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<IDPRejectedClaimException, __BaseException>
+  );
+}
+export declare class InvalidIdentityTokenException extends __BaseException {
+  readonly name: "InvalidIdentityTokenException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<InvalidIdentityTokenException, __BaseException>
+  );
+}
+export interface AssumeRoleWithWebIdentityRequest {
+  RoleArn: string | undefined;
+  RoleSessionName: string | undefined;
+  WebIdentityToken: string | undefined;
+  ProviderId?: string;
+  PolicyArns?: PolicyDescriptorType[];
+  Policy?: string;
+  DurationSeconds?: number;
+}
+export interface AssumeRoleWithWebIdentityResponse {
+  Credentials?: Credentials;
+  SubjectFromWebIdentityToken?: string;
+  AssumedRoleUser?: AssumedRoleUser;
+  PackedPolicySize?: number;
+  Provider?: string;
+  Audience?: string;
+  SourceIdentity?: string;
+}
+export declare class IDPCommunicationErrorException extends __BaseException {
+  readonly name: "IDPCommunicationErrorException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<IDPCommunicationErrorException, __BaseException>
+  );
+}
+export interface DecodeAuthorizationMessageRequest {
+  EncodedMessage: string | undefined;
+}
+export interface DecodeAuthorizationMessageResponse {
+  DecodedMessage?: string;
+}
+export declare class InvalidAuthorizationMessageException extends __BaseException {
+  readonly name: "InvalidAuthorizationMessageException";
+  readonly $fault: "client";
+  constructor(
+    opts: __ExceptionOptionType<
+      InvalidAuthorizationMessageException,
+      __BaseException
+    >
+  );
+}
+export interface GetAccessKeyInfoRequest {
+  AccessKeyId: string | undefined;
+}
+export interface GetAccessKeyInfoResponse {
+  Account?: string;
+}
+export interface GetCallerIdentityRequest {}
+export interface GetCallerIdentityResponse {
+  UserId?: string;
+  Account?: string;
+  Arn?: string;
+}
+export interface GetFederationTokenRequest {
+  Name: string | undefined;
+  Policy?: string;
+  PolicyArns?: PolicyDescriptorType[];
+  DurationSeconds?: number;
+  Tags?: Tag[];
+}
+export interface FederatedUser {
+  FederatedUserId: string | undefined;
+  Arn: string | undefined;
+}
+export interface GetFederationTokenResponse {
+  Credentials?: Credentials;
+  FederatedUser?: FederatedUser;
+  PackedPolicySize?: number;
+}
+export interface GetSessionTokenRequest {
+  DurationSeconds?: number;
+  SerialNumber?: string;
+  TokenCode?: string;
+}
+export interface GetSessionTokenResponse {
   Credentials?: Credentials;
 }
-export declare class InvalidIdentityPoolConfigurationException extends __BaseException {
-  readonly name: "InvalidIdentityPoolConfigurationException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<
-      InvalidIdentityPoolConfigurationException,
-      __BaseException
-    >
-  );
-}
-export interface GetIdInput {
-  AccountId?: string;
-  IdentityPoolId: string | undefined;
-  Logins?: Record<string, string>;
-}
-export interface GetIdResponse {
-  IdentityId?: string;
-}
-export interface GetIdentityPoolRolesInput {
-  IdentityPoolId: string | undefined;
-}
-export declare enum MappingRuleMatchType {
-  CONTAINS = "Contains",
-  EQUALS = "Equals",
-  NOT_EQUAL = "NotEqual",
-  STARTS_WITH = "StartsWith",
-}
-export interface MappingRule {
-  Claim: string | undefined;
-  MatchType: MappingRuleMatchType | string | undefined;
-  Value: string | undefined;
-  RoleARN: string | undefined;
-}
-export interface RulesConfigurationType {
-  Rules: MappingRule[] | undefined;
-}
-export declare enum RoleMappingType {
-  RULES = "Rules",
-  TOKEN = "Token",
-}
-export interface RoleMapping {
-  Type: RoleMappingType | string | undefined;
-  AmbiguousRoleResolution?: AmbiguousRoleResolutionType | string;
-  RulesConfiguration?: RulesConfigurationType;
-}
-export interface GetIdentityPoolRolesResponse {
-  IdentityPoolId?: string;
-  Roles?: Record<string, string>;
-  RoleMappings?: Record<string, RoleMapping>;
-}
-export interface GetOpenIdTokenInput {
-  IdentityId: string | undefined;
-  Logins?: Record<string, string>;
-}
-export interface GetOpenIdTokenResponse {
-  IdentityId?: string;
-  Token?: string;
-}
-export declare class DeveloperUserAlreadyRegisteredException extends __BaseException {
-  readonly name: "DeveloperUserAlreadyRegisteredException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<
-      DeveloperUserAlreadyRegisteredException,
-      __BaseException
-    >
-  );
-}
-export interface GetOpenIdTokenForDeveloperIdentityInput {
-  IdentityPoolId: string | undefined;
-  IdentityId?: string;
-  Logins: Record<string, string> | undefined;
-  PrincipalTags?: Record<string, string>;
-  TokenDuration?: number;
-}
-export interface GetOpenIdTokenForDeveloperIdentityResponse {
-  IdentityId?: string;
-  Token?: string;
-}
-export interface GetPrincipalTagAttributeMapInput {
-  IdentityPoolId: string | undefined;
-  IdentityProviderName: string | undefined;
-}
-export interface GetPrincipalTagAttributeMapResponse {
-  IdentityPoolId?: string;
-  IdentityProviderName?: string;
-  UseDefaults?: boolean;
-  PrincipalTags?: Record<string, string>;
-}
-export interface ListIdentitiesInput {
-  IdentityPoolId: string | undefined;
-  MaxResults: number | undefined;
-  NextToken?: string;
-  HideDisabled?: boolean;
-}
-export interface ListIdentitiesResponse {
-  IdentityPoolId?: string;
-  Identities?: IdentityDescription[];
-  NextToken?: string;
-}
-export interface ListIdentityPoolsInput {
-  MaxResults: number | undefined;
-  NextToken?: string;
-}
-export interface IdentityPoolShortDescription {
-  IdentityPoolId?: string;
-  IdentityPoolName?: string;
-}
-export interface ListIdentityPoolsResponse {
-  IdentityPools?: IdentityPoolShortDescription[];
-  NextToken?: string;
-}
-export interface ListTagsForResourceInput {
-  ResourceArn: string | undefined;
-}
-export interface ListTagsForResourceResponse {
-  Tags?: Record<string, string>;
-}
-export interface LookupDeveloperIdentityInput {
-  IdentityPoolId: string | undefined;
-  IdentityId?: string;
-  DeveloperUserIdentifier?: string;
-  MaxResults?: number;
-  NextToken?: string;
-}
-export interface LookupDeveloperIdentityResponse {
-  IdentityId?: string;
-  DeveloperUserIdentifierList?: string[];
-  NextToken?: string;
-}
-export interface MergeDeveloperIdentitiesInput {
-  SourceUserIdentifier: string | undefined;
-  DestinationUserIdentifier: string | undefined;
-  DeveloperProviderName: string | undefined;
-  IdentityPoolId: string | undefined;
-}
-export interface MergeDeveloperIdentitiesResponse {
-  IdentityId?: string;
-}
-export declare class ConcurrentModificationException extends __BaseException {
-  readonly name: "ConcurrentModificationException";
-  readonly $fault: "client";
-  constructor(
-    opts: __ExceptionOptionType<
-      ConcurrentModificationException,
-      __BaseException
-    >
-  );
-}
-export interface SetIdentityPoolRolesInput {
-  IdentityPoolId: string | undefined;
-  Roles: Record<string, string> | undefined;
-  RoleMappings?: Record<string, RoleMapping>;
-}
-export interface SetPrincipalTagAttributeMapInput {
-  IdentityPoolId: string | undefined;
-  IdentityProviderName: string | undefined;
-  UseDefaults?: boolean;
-  PrincipalTags?: Record<string, string>;
-}
-export interface SetPrincipalTagAttributeMapResponse {
-  IdentityPoolId?: string;
-  IdentityProviderName?: string;
-  UseDefaults?: boolean;
-  PrincipalTags?: Record<string, string>;
-}
-export interface TagResourceInput {
-  ResourceArn: string | undefined;
-  Tags: Record<string, string> | undefined;
-}
-export interface TagResourceResponse {}
-export interface UnlinkDeveloperIdentityInput {
-  IdentityId: string | undefined;
-  IdentityPoolId: string | undefined;
-  DeveloperProviderName: string | undefined;
-  DeveloperUserIdentifier: string | undefined;
-}
-export interface UnlinkIdentityInput {
-  IdentityId: string | undefined;
-  Logins: Record<string, string> | undefined;
-  LoginsToRemove: string[] | undefined;
-}
-export interface UntagResourceInput {
-  ResourceArn: string | undefined;
-  TagKeys: string[] | undefined;
-}
-export interface UntagResourceResponse {}
-export declare const CognitoIdentityProviderFilterSensitiveLog: (
-  obj: CognitoIdentityProvider
+export declare const AssumedRoleUserFilterSensitiveLog: (
+  obj: AssumedRoleUser
 ) => any;
-export declare const CreateIdentityPoolInputFilterSensitiveLog: (
-  obj: CreateIdentityPoolInput
+export declare const PolicyDescriptorTypeFilterSensitiveLog: (
+  obj: PolicyDescriptorType
 ) => any;
-export declare const IdentityPoolFilterSensitiveLog: (obj: IdentityPool) => any;
-export declare const DeleteIdentitiesInputFilterSensitiveLog: (
-  obj: DeleteIdentitiesInput
-) => any;
-export declare const UnprocessedIdentityIdFilterSensitiveLog: (
-  obj: UnprocessedIdentityId
-) => any;
-export declare const DeleteIdentitiesResponseFilterSensitiveLog: (
-  obj: DeleteIdentitiesResponse
-) => any;
-export declare const DeleteIdentityPoolInputFilterSensitiveLog: (
-  obj: DeleteIdentityPoolInput
-) => any;
-export declare const DescribeIdentityInputFilterSensitiveLog: (
-  obj: DescribeIdentityInput
-) => any;
-export declare const IdentityDescriptionFilterSensitiveLog: (
-  obj: IdentityDescription
-) => any;
-export declare const DescribeIdentityPoolInputFilterSensitiveLog: (
-  obj: DescribeIdentityPoolInput
-) => any;
-export declare const GetCredentialsForIdentityInputFilterSensitiveLog: (
-  obj: GetCredentialsForIdentityInput
+export declare const TagFilterSensitiveLog: (obj: Tag) => any;
+export declare const AssumeRoleRequestFilterSensitiveLog: (
+  obj: AssumeRoleRequest
 ) => any;
 export declare const CredentialsFilterSensitiveLog: (obj: Credentials) => any;
-export declare const GetCredentialsForIdentityResponseFilterSensitiveLog: (
-  obj: GetCredentialsForIdentityResponse
+export declare const AssumeRoleResponseFilterSensitiveLog: (
+  obj: AssumeRoleResponse
 ) => any;
-export declare const GetIdInputFilterSensitiveLog: (obj: GetIdInput) => any;
-export declare const GetIdResponseFilterSensitiveLog: (
-  obj: GetIdResponse
+export declare const AssumeRoleWithSAMLRequestFilterSensitiveLog: (
+  obj: AssumeRoleWithSAMLRequest
 ) => any;
-export declare const GetIdentityPoolRolesInputFilterSensitiveLog: (
-  obj: GetIdentityPoolRolesInput
+export declare const AssumeRoleWithSAMLResponseFilterSensitiveLog: (
+  obj: AssumeRoleWithSAMLResponse
 ) => any;
-export declare const MappingRuleFilterSensitiveLog: (obj: MappingRule) => any;
-export declare const RulesConfigurationTypeFilterSensitiveLog: (
-  obj: RulesConfigurationType
+export declare const AssumeRoleWithWebIdentityRequestFilterSensitiveLog: (
+  obj: AssumeRoleWithWebIdentityRequest
 ) => any;
-export declare const RoleMappingFilterSensitiveLog: (obj: RoleMapping) => any;
-export declare const GetIdentityPoolRolesResponseFilterSensitiveLog: (
-  obj: GetIdentityPoolRolesResponse
+export declare const AssumeRoleWithWebIdentityResponseFilterSensitiveLog: (
+  obj: AssumeRoleWithWebIdentityResponse
 ) => any;
-export declare const GetOpenIdTokenInputFilterSensitiveLog: (
-  obj: GetOpenIdTokenInput
+export declare const DecodeAuthorizationMessageRequestFilterSensitiveLog: (
+  obj: DecodeAuthorizationMessageRequest
 ) => any;
-export declare const GetOpenIdTokenResponseFilterSensitiveLog: (
-  obj: GetOpenIdTokenResponse
+export declare const DecodeAuthorizationMessageResponseFilterSensitiveLog: (
+  obj: DecodeAuthorizationMessageResponse
 ) => any;
-export declare const GetOpenIdTokenForDeveloperIdentityInputFilterSensitiveLog: (
-  obj: GetOpenIdTokenForDeveloperIdentityInput
+export declare const GetAccessKeyInfoRequestFilterSensitiveLog: (
+  obj: GetAccessKeyInfoRequest
 ) => any;
-export declare const GetOpenIdTokenForDeveloperIdentityResponseFilterSensitiveLog: (
-  obj: GetOpenIdTokenForDeveloperIdentityResponse
+export declare const GetAccessKeyInfoResponseFilterSensitiveLog: (
+  obj: GetAccessKeyInfoResponse
 ) => any;
-export declare const GetPrincipalTagAttributeMapInputFilterSensitiveLog: (
-  obj: GetPrincipalTagAttributeMapInput
+export declare const GetCallerIdentityRequestFilterSensitiveLog: (
+  obj: GetCallerIdentityRequest
 ) => any;
-export declare const GetPrincipalTagAttributeMapResponseFilterSensitiveLog: (
-  obj: GetPrincipalTagAttributeMapResponse
+export declare const GetCallerIdentityResponseFilterSensitiveLog: (
+  obj: GetCallerIdentityResponse
 ) => any;
-export declare const ListIdentitiesInputFilterSensitiveLog: (
-  obj: ListIdentitiesInput
+export declare const GetFederationTokenRequestFilterSensitiveLog: (
+  obj: GetFederationTokenRequest
 ) => any;
-export declare const ListIdentitiesResponseFilterSensitiveLog: (
-  obj: ListIdentitiesResponse
+export declare const FederatedUserFilterSensitiveLog: (
+  obj: FederatedUser
 ) => any;
-export declare const ListIdentityPoolsInputFilterSensitiveLog: (
-  obj: ListIdentityPoolsInput
+export declare const GetFederationTokenResponseFilterSensitiveLog: (
+  obj: GetFederationTokenResponse
 ) => any;
-export declare const IdentityPoolShortDescriptionFilterSensitiveLog: (
-  obj: IdentityPoolShortDescription
+export declare const GetSessionTokenRequestFilterSensitiveLog: (
+  obj: GetSessionTokenRequest
 ) => any;
-export declare const ListIdentityPoolsResponseFilterSensitiveLog: (
-  obj: ListIdentityPoolsResponse
-) => any;
-export declare const ListTagsForResourceInputFilterSensitiveLog: (
-  obj: ListTagsForResourceInput
-) => any;
-export declare const ListTagsForResourceResponseFilterSensitiveLog: (
-  obj: ListTagsForResourceResponse
-) => any;
-export declare const LookupDeveloperIdentityInputFilterSensitiveLog: (
-  obj: LookupDeveloperIdentityInput
-) => any;
-export declare const LookupDeveloperIdentityResponseFilterSensitiveLog: (
-  obj: LookupDeveloperIdentityResponse
-) => any;
-export declare const MergeDeveloperIdentitiesInputFilterSensitiveLog: (
-  obj: MergeDeveloperIdentitiesInput
-) => any;
-export declare const MergeDeveloperIdentitiesResponseFilterSensitiveLog: (
-  obj: MergeDeveloperIdentitiesResponse
-) => any;
-export declare const SetIdentityPoolRolesInputFilterSensitiveLog: (
-  obj: SetIdentityPoolRolesInput
-) => any;
-export declare const SetPrincipalTagAttributeMapInputFilterSensitiveLog: (
-  obj: SetPrincipalTagAttributeMapInput
-) => any;
-export declare const SetPrincipalTagAttributeMapResponseFilterSensitiveLog: (
-  obj: SetPrincipalTagAttributeMapResponse
-) => any;
-export declare const TagResourceInputFilterSensitiveLog: (
-  obj: TagResourceInput
-) => any;
-export declare const TagResourceResponseFilterSensitiveLog: (
-  obj: TagResourceResponse
-) => any;
-export declare const UnlinkDeveloperIdentityInputFilterSensitiveLog: (
-  obj: UnlinkDeveloperIdentityInput
-) => any;
-export declare const UnlinkIdentityInputFilterSensitiveLog: (
-  obj: UnlinkIdentityInput
-) => any;
-export declare const UntagResourceInputFilterSensitiveLog: (
-  obj: UntagResourceInput
-) => any;
-export declare const UntagResourceResponseFilterSensitiveLog: (
-  obj: UntagResourceResponse
+export declare const GetSessionTokenResponseFilterSensitiveLog: (
+  obj: GetSessionTokenResponse
 ) => any;

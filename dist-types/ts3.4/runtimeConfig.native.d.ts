@@ -1,7 +1,5 @@
-import { CognitoIdentityClientConfig } from "./CognitoIdentityClient";
-export declare const getRuntimeConfig: (
-  config: CognitoIdentityClientConfig
-) => {
+import { STSClientConfig } from "./STSClient";
+export declare const getRuntimeConfig: (config: STSClientConfig) => {
   runtime: string;
   sha256: import("@aws-sdk/types").HashConstructor;
   requestHandler:
@@ -76,4 +74,8 @@ export declare const getRuntimeConfig: (
       ) => import("@aws-sdk/types").RequestSigner)
     | undefined;
   customUserAgent?: string | import("@aws-sdk/types").UserAgent | undefined;
+  useGlobalEndpoint?:
+    | boolean
+    | import("@aws-sdk/types").Provider<boolean>
+    | undefined;
 };

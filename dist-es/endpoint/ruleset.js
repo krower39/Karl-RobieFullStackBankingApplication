@@ -27,6 +27,13 @@ export const ruleSet = {
             documentation: "Override the endpoint used to send this request",
             type: "String",
         },
+        UseGlobalEndpoint: {
+            builtIn: "AWS::STS::UseGlobalEndpoint",
+            required: true,
+            default: false,
+            documentation: "Whether the global endpoint should be used, rather then the regional endpoint for us-east-1.",
+            type: "Boolean",
+        },
     },
     rules: [
         {
@@ -43,6 +50,502 @@ export const ruleSet = {
             ],
             type: "tree",
             rules: [
+                {
+                    conditions: [
+                        {
+                            fn: "booleanEquals",
+                            argv: [
+                                {
+                                    ref: "UseGlobalEndpoint",
+                                },
+                                true,
+                            ],
+                        },
+                        {
+                            fn: "booleanEquals",
+                            argv: [
+                                {
+                                    ref: "UseFIPS",
+                                },
+                                false,
+                            ],
+                        },
+                        {
+                            fn: "booleanEquals",
+                            argv: [
+                                {
+                                    ref: "UseDualStack",
+                                },
+                                false,
+                            ],
+                        },
+                        {
+                            fn: "not",
+                            argv: [
+                                {
+                                    fn: "isSet",
+                                    argv: [
+                                        {
+                                            ref: "Endpoint",
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                    type: "tree",
+                    rules: [
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "ap-northeast-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "ap-south-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "ap-southeast-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "ap-southeast-2",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "aws-global",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "ca-central-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "eu-central-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "eu-north-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "eu-west-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "eu-west-2",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "eu-west-3",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "sa-east-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "us-east-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "us-east-2",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "us-west-1",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "us-west-2",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "us-east-1",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [],
+                            endpoint: {
+                                url: "https://sts.{Region}.{PartitionResult#dnsSuffix}",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingName: "sts",
+                                            signingRegion: "{Region}",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                    ],
+                },
                 {
                     conditions: [
                         {
@@ -175,7 +678,7 @@ export const ruleSet = {
                                 {
                                     conditions: [],
                                     endpoint: {
-                                        url: "https://cognito-identity-fips.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                        url: "https://sts-fips.{Region}.{PartitionResult#dualStackDnsSuffix}",
                                         properties: {},
                                         headers: {},
                                     },
@@ -229,9 +732,34 @@ export const ruleSet = {
                                     type: "tree",
                                     rules: [
                                         {
+                                            conditions: [
+                                                {
+                                                    fn: "stringEquals",
+                                                    argv: [
+                                                        "aws-us-gov",
+                                                        {
+                                                            fn: "getAttr",
+                                                            argv: [
+                                                                {
+                                                                    ref: "PartitionResult",
+                                                                },
+                                                                "name",
+                                                            ],
+                                                        },
+                                                    ],
+                                                },
+                                            ],
+                                            endpoint: {
+                                                url: "https://sts.{Region}.{PartitionResult#dnsSuffix}",
+                                                properties: {},
+                                                headers: {},
+                                            },
+                                            type: "endpoint",
+                                        },
+                                        {
                                             conditions: [],
                                             endpoint: {
-                                                url: "https://cognito-identity-fips.{Region}.{PartitionResult#dnsSuffix}",
+                                                url: "https://sts-fips.{Region}.{PartitionResult#dnsSuffix}",
                                                 properties: {},
                                                 headers: {},
                                             },
@@ -285,7 +813,7 @@ export const ruleSet = {
                                 {
                                     conditions: [],
                                     endpoint: {
-                                        url: "https://cognito-identity.{Region}.{PartitionResult#dualStackDnsSuffix}",
+                                        url: "https://sts.{Region}.{PartitionResult#dualStackDnsSuffix}",
                                         properties: {},
                                         headers: {},
                                     },
@@ -302,12 +830,45 @@ export const ruleSet = {
                 },
                 {
                     conditions: [],
-                    endpoint: {
-                        url: "https://cognito-identity.{Region}.{PartitionResult#dnsSuffix}",
-                        properties: {},
-                        headers: {},
-                    },
-                    type: "endpoint",
+                    type: "tree",
+                    rules: [
+                        {
+                            conditions: [
+                                {
+                                    fn: "stringEquals",
+                                    argv: [
+                                        {
+                                            ref: "Region",
+                                        },
+                                        "aws-global",
+                                    ],
+                                },
+                            ],
+                            endpoint: {
+                                url: "https://sts.amazonaws.com",
+                                properties: {
+                                    authSchemes: [
+                                        {
+                                            name: "sigv4",
+                                            signingRegion: "us-east-1",
+                                            signingName: "sts",
+                                        },
+                                    ],
+                                },
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                        {
+                            conditions: [],
+                            endpoint: {
+                                url: "https://sts.{Region}.{PartitionResult#dnsSuffix}",
+                                properties: {},
+                                headers: {},
+                            },
+                            type: "endpoint",
+                        },
+                    ],
                 },
             ],
         },

@@ -1,8 +1,8 @@
-import { CognitoIdentityClientConfig } from "./CognitoIdentityClient";
+import { STSClientConfig } from "./STSClient";
 /**
  * @internal
  */
-export declare const getRuntimeConfig: (config: CognitoIdentityClientConfig) => {
+export declare const getRuntimeConfig: (config: STSClientConfig) => {
     runtime: string;
     sha256: import("@aws-sdk/types").HashConstructor;
     requestHandler: (import("@aws-sdk/types").RequestHandler<any, any, import("@aws-sdk/types").HttpHandlerOptions> & import("@aws-sdk/protocol-http").HttpHandler) | import("@aws-sdk/fetch-http-handler").FetchHttpHandler;
@@ -38,4 +38,5 @@ export declare const getRuntimeConfig: (config: CognitoIdentityClientConfig) => 
     signingRegion?: string | undefined;
     signerConstructor?: (new (options: import("@aws-sdk/signature-v4").SignatureV4Init & import("@aws-sdk/signature-v4").SignatureV4CryptoInit) => import("@aws-sdk/types").RequestSigner) | undefined;
     customUserAgent?: string | import("@aws-sdk/types").UserAgent | undefined;
+    useGlobalEndpoint?: boolean | import("@aws-sdk/types").Provider<boolean> | undefined;
 };

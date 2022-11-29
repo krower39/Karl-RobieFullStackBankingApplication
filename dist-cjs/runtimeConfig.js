@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getRuntimeConfig = void 0;
 const tslib_1 = require("tslib");
 const package_json_1 = tslib_1.__importDefault(require("../package.json"));
-const client_sts_1 = require("@aws-sdk/client-sts");
+const defaultStsRoleAssumers_1 = require("./defaultStsRoleAssumers");
 const config_resolver_1 = require("@aws-sdk/config-resolver");
 const credential_provider_node_1 = require("@aws-sdk/credential-provider-node");
 const hash_node_1 = require("@aws-sdk/hash-node");
@@ -28,7 +28,7 @@ const getRuntimeConfig = (config) => {
         runtime: "node",
         defaultsMode,
         bodyLengthChecker: config?.bodyLengthChecker ?? util_body_length_node_1.calculateBodyLength,
-        credentialDefaultProvider: config?.credentialDefaultProvider ?? (0, client_sts_1.decorateDefaultCredentialProvider)(credential_provider_node_1.defaultProvider),
+        credentialDefaultProvider: config?.credentialDefaultProvider ?? (0, defaultStsRoleAssumers_1.decorateDefaultCredentialProvider)(credential_provider_node_1.defaultProvider),
         defaultUserAgentProvider: config?.defaultUserAgentProvider ??
             (0, util_user_agent_node_1.defaultUserAgent)({ serviceId: clientSharedValues.serviceId, clientVersion: package_json_1.default.version }),
         maxAttempts: config?.maxAttempts ?? (0, node_config_provider_1.loadConfig)(middleware_retry_1.NODE_MAX_ATTEMPT_CONFIG_OPTIONS),

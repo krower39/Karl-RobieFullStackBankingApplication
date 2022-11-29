@@ -15,6 +15,7 @@ export interface ClientInputEndpointParameters {
     | Provider<Endpoint>
     | EndpointV2
     | Provider<EndpointV2>;
+  useGlobalEndpoint?: boolean | Provider<boolean>;
 }
 export declare type ClientResolvedEndpointParameters =
   ClientInputEndpointParameters & {
@@ -31,4 +32,5 @@ export interface EndpointParameters extends __EndpointParameters {
   UseDualStack?: boolean;
   UseFIPS?: boolean;
   Endpoint?: string;
+  UseGlobalEndpoint?: boolean;
 }

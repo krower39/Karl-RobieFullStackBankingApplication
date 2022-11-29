@@ -1,16 +1,12 @@
 import { NodeHttpHandler as RequestHandler } from "@aws-sdk/node-http-handler";
-import { CognitoIdentityClientConfig } from "./CognitoIdentityClient";
-export declare const getRuntimeConfig: (
-  config: CognitoIdentityClientConfig
-) => {
+import { STSClientConfig } from "./STSClient";
+export declare const getRuntimeConfig: (config: STSClientConfig) => {
   runtime: string;
   defaultsMode: import("@aws-sdk/types").Provider<
     import("@aws-sdk/smithy-client").ResolvedDefaultsMode
   >;
   bodyLengthChecker: import("@aws-sdk/types").BodyLengthCalculator;
-  credentialDefaultProvider: (
-    input: any
-  ) => import("@aws-sdk/types").Provider<import("@aws-sdk/types").Credentials>;
+  credentialDefaultProvider: import("./defaultStsRoleAssumers").DefaultCredentialProvider;
   defaultUserAgentProvider: import("@aws-sdk/types").Provider<
     import("@aws-sdk/types").UserAgent
   >;
@@ -87,4 +83,8 @@ export declare const getRuntimeConfig: (
       ) => import("@aws-sdk/types").RequestSigner)
     | undefined;
   customUserAgent?: string | import("@aws-sdk/types").UserAgent | undefined;
+  useGlobalEndpoint?:
+    | boolean
+    | import("@aws-sdk/types").Provider<boolean>
+    | undefined;
 };

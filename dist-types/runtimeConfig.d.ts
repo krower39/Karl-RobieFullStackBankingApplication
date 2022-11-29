@@ -1,13 +1,13 @@
 import { NodeHttpHandler as RequestHandler } from "@aws-sdk/node-http-handler";
-import { CognitoIdentityClientConfig } from "./CognitoIdentityClient";
+import { STSClientConfig } from "./STSClient";
 /**
  * @internal
  */
-export declare const getRuntimeConfig: (config: CognitoIdentityClientConfig) => {
+export declare const getRuntimeConfig: (config: STSClientConfig) => {
     runtime: string;
     defaultsMode: import("@aws-sdk/types").Provider<import("@aws-sdk/smithy-client").ResolvedDefaultsMode>;
     bodyLengthChecker: import("@aws-sdk/types").BodyLengthCalculator;
-    credentialDefaultProvider: (input: any) => import("@aws-sdk/types").Provider<import("@aws-sdk/types").Credentials>;
+    credentialDefaultProvider: import("./defaultStsRoleAssumers").DefaultCredentialProvider;
     defaultUserAgentProvider: import("@aws-sdk/types").Provider<import("@aws-sdk/types").UserAgent>;
     maxAttempts: number | import("@aws-sdk/types").Provider<number>;
     region: string | import("@aws-sdk/types").Provider<string>;
@@ -39,4 +39,5 @@ export declare const getRuntimeConfig: (config: CognitoIdentityClientConfig) => 
     signingRegion?: string | undefined;
     signerConstructor?: (new (options: import("@aws-sdk/signature-v4").SignatureV4Init & import("@aws-sdk/signature-v4").SignatureV4CryptoInit) => import("@aws-sdk/types").RequestSigner) | undefined;
     customUserAgent?: string | import("@aws-sdk/types").UserAgent | undefined;
+    useGlobalEndpoint?: boolean | import("@aws-sdk/types").Provider<boolean> | undefined;
 };
